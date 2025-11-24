@@ -31,14 +31,22 @@ class ModelTrainer:
         cpu_count = max(1, os.cpu_count() or 1)
         intra = self.config.intra_op_threads or max(1, cpu_count - 2)
         inter = self.config.inter_op_threads or max(1, cpu_count // 2)
-        tf.config.threading.set_intra_op_parallelism_threads(intra)
-        tf.config.threading.set_inter_op_parallelism_threads(inter)
-        logging.info(
-            "Configured TensorFlow threading: intra_op=%s inter_op=%s (cpu_count=%s)",
-            intra,
-            inter,
-            cpu_count,
-        )
+        try:
+            tf.config.threading.set_intra_op_parallelism_threads(intra)
+            tf.config.threading.set_inter_op_parallelism_threads(inter)
+            logging.info(
+                "Configured TensorFlow threading: intra_op=%s inter_op=%s (cpu_count=%s)",
+                intra,
+                inter,
+                cpu_count,
+            )
+        except RuntimeError:
+            logging.info(
+                "TensorFlow runtime already initialised; keeping existing threading config "
+                "(current intra_op=%s inter_op=%s)",
+                tf.config.threading.get_intra_op_parallelism_threads(),
+                tf.config.threading.get_inter_op_parallelism_threads(),
+            )
 
     def _build_model(self, input_shape, num_classes: int) -> tf.keras.Model:
         model = tf.keras.Sequential([
