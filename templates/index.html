@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Brain Tumor Detector</title>
+	<style>
+		body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #1f3b70, #243b55); color: #ffffff; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+		.card { background: rgba(255, 255, 255, 0.08); padding: 48px; border-radius: 18px; text-align: center; max-width: 640px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25); }
+		h1 { margin-bottom: 16px; }
+		p { line-height: 1.6; }
+		a { display: inline-block; margin-top: 28px; background: #79b8ff; color: #0b1d40; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; }
+		a:hover { background: #b3d4ff; }
+	</style>
+</head>
+<body>
+	<div class="card">
+		<h1>Brain Tumor Classification</h1>
+		<p>This project repackages the CNN workflow from the <code>brain/cancer_Cnn.ipynb</code> notebook into a production-ready API layer. Upload MRI slices to run on the trained TensorFlow model and obtain instant predictions.</p>
+		<a href="{{ url_for('predict_datapoint') }}">Upload an MRI Scan</a>
+	</div>
+</body>
+</html>
