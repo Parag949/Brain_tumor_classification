@@ -20,6 +20,5 @@ A modular deep learning pipeline that classifies brain MRI scans into four categ
 | Classes | Glioma, Meningioma, Pituitary, No Tumor |
 | Training Epochs | 10 (with early stopping) |
 
-*(Pull these from `artifacts/evaluation_metrics.json` after training)*
 
 ## Project Structure
