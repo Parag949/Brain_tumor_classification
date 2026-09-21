@@ -16,8 +16,7 @@ A modular deep learning pipeline that classifies brain MRI scans into four categ
 
 | Metric | Value |
 |---|---|
-| Test Accuracy | **[X]%** |
-| Test Loss | **[X]** |
+| Test Accuracy | **77%** |
 | Classes | Glioma, Meningioma, Pituitary, No Tumor |
 | Training Epochs | 10 (with early stopping) |
 
