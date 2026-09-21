@@ -1,18 +1,26 @@
 # Brain Tumor Classification
 
-This repository repackages the convolutional neural network developed in `brain/cancer_Cnn.ipynb` into a modular training pipeline and Flask inference service. Upload brain MRI slices to detect tumor types using the same TensorFlow architecture as the notebook.
+A modular deep learning pipeline that classifies brain MRI scans into four categories — **Glioma**, **Meningioma**, **Pituitary Tumor**, or **No Tumor** — using a custom CNN built with TensorFlow/Keras, served through a Flask web app.
 
-## Project layout
-- `src/components` holds ingestion, transformation, and training stages for the CNN workflow.
-- `src/pipeline/train_pipeline.py` orchestrates an end-to-end training run.
-- `src/pipeline/predict_pipeline.py` powers the Flask app to score MRI images.
-- `templates/` contains the minimal frontend for uploading scans.
-- `brain/cancer_Cnn.ipynb` remains unchanged for exploration and experimentation.
+## Highlights
 
-## Getting started
-1. Place the dataset under either `brain/Brain-Tumor-Classification-DataSet-master` **or** `Brain-Tumor-Classification-DataSet-master/` at the repo root (or set `BRAIN_TUMOR_DATA_DIR`). The folder must contain `Training/` and `Testing/` subdirectories.
-2. Install dependencies: `pip install -r requirements.txt`.
-3. Train the model: `python -m src.pipeline.train_pipeline`.
-4. Launch the web app: `python app.py` and open the provided URL to upload MRI images.
+- **Modular pipeline architecture**: separate `DataIngestion`, `DataTransformation`, and `ModelTrainer` components, each with its own config, orchestrated by `train_pipeline.py`
+- **Custom exception handling**: every error is wrapped with automatic file name and line number capture for fast debugging
+- **Structured logging**: timestamped run logs for every training session
+- **Data augmentation**: random flip, rotation, and zoom applied only to training data (not leaked into validation/test)
+- **Training optimizations**: early stopping on validation accuracy, learning-rate reduction on plateau
+- **`tf.data` performance tuning**: AUTOTUNE, dataset caching, prefetching, and manual CPU thread-pool configuration
+- **Lazy-loaded inference pipeline**: model and class labels load once and are reused across prediction requests, not reloaded per call
 
-The trained model along with class labels and metrics are written to the `artifacts/` directory.
+## Results
+
+| Metric | Value |
+|---|---|
+| Test Accuracy | **[X]%** |
+| Test Loss | **[X]** |
+| Classes | Glioma, Meningioma, Pituitary, No Tumor |
+| Training Epochs | 10 (with early stopping) |
+
+*(Pull these from `artifacts/evaluation_metrics.json` after training)*
+
+## Project Structure
